@@ -33,7 +33,7 @@ Algoritmo Cobro_de_estacionamiento
 		totalMinutos=totalMinutos-1
 	FinSi
 	
-	//convertir todo a minutos
+	//Convertir todo a minutos
 	totalMinutos=totalMinutos+(totalHoras*60)+(totalsegundos/60)
 	
 	//calculemos el total de cobro
