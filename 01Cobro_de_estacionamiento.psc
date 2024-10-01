@@ -1,54 +1,56 @@
 Algoritmo Cobro_de_estacionamiento
-	Definir horaentrada, minutosentrada, horasalida, minutosalida Como Real
-	Definir totalHoras, totalMinutos, minutostotalesdelacuenta, totalcobro Como Real
+	Definir horaentrada, minutosentrada, segundosentrada, horasalida, minutosalida, segundossalida Como Real
+	Definir totalHoras, totalMinutos, totalsegundos, minutosrestantes, totalcobro, fracciones15min Como Real
 	
-	//entrada de datos//
+	//Ingresamos los datos de entrada (horas, minutos y segundos de entrada y de salidad)
 	Escribir "Ingrese la hora de entrada (formato 24 horas)"
 	Leer horaentrada
-	Escribir "Ingrese los minutos de entrada (forma de 0 - 59)"
+	Escribir "Ingrese los minutos de entrada (formato de 0 - 59)"
 	Leer minutoentrada
+	Escribir "Ingrese los segundos de entrada (formato de 0 - 59)"
+	Leer segundosentrada
 	
 	Escribir "Ingrese la hora de salida (formato 24 horas)"
 	Leer horasalida
-	Escribir "Ingrese los minutos de salida (forma de 0 - 59)"
+	Escribir "Ingrese los minutos de salida (formato de 0 - 59)"
 	Leer minutosalida
+	Escribir "Ingrese los segundos de salida (formato de 0 - 59)"
+	Leer segundossalida
 	
-	//procesos//
-	//calcular el timepo total en minutos//
+	//procesos
+	//Definimos el total de cada valor
 	totalHoras=(horasalida-horaentrada)
-	totalMinutos=(minutosalida-minutosentrada)
+	totalMinutos=(minutosalida-minutoentrada)
+	totalsegundos=(segundosentrada-segundossalida)
 	
-	//tengo que empezar a evaluar los casos//
-	//si lo sminutos de salida son menores a los de entrada//
-	//hay que ajustar la hora y minutos de salida//
-	Si totalMinutos < 0 Entonces
-		totalMinutos = totalMinutos + 60
-		//totalMinutos += 60 //
-		totalHoras = totalHoras - 1
-	Fin Si
-	
-	//convertir todo a mintos//
-	totalMinutos = (totalHoras * 60) + totalMinutos
-	
-	//vamos a caluclar el cobro//
-	totalcobro = 0
-	
-	//calcular el cobro por la hora completa//
-	si totalMinutos >= 60  Entonces
-		totalcobro = totalcobro + (totalMinutos/60)*15
+	//Evaluamos los casos
+	si totalMinutos<0 Entonces
+		totalMinutos=totalMinutos+60
+		totalHoras=totalHoras-1
+	FinSi
+	si totalsegundos<0 Entonces
+		totalsegundos=totalsegundos+60
+		totalMinutos=totalMinutos-1
 	FinSi
 	
-	//calcular el cobro de cada fracción
+	//convertir todo a minutos
+	totalMinutos=totalMinutos+(totalHoras*60)+(totalsegundos/60)
+	
+	//calculemos el total de cobro
+	totalcobro=0
+	si totalMinutos>=60 Entonces
+		totalcobro=totalcobro+((totalMinutos/60)*15)
+	FinSi
+	
+	//calculemos el cobro de la fracción de hora
 	minutosrestantes=totalMinutos%60
-	Escribir minutosrestantes
 	sI minutosrestantes>0 Entonces
 		fracciones15min=minutosrestantes //aquí se obtienen fracciones de 15 minutos//
 		totalcobro=totalcobro+(fracciones15min*6)
 	FinSi
 	
 	//mostrar el resultado
-	Escribir "El total a pagar es de: ",totalcobro, " pesos"
-	
+	Escribir "El total a pagar es de: ",totalcobro, "$"
 	
 	
 FinAlgoritmo
